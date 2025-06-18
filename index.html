@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Inventario Tienda Moderna</title>
+  <!-- Google Fonts Inter y Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="#" class="brand" tabindex="0">
+      <span class="material-icons">storefront</span>
+      <span>Inventario PRO Tienda</span>
+    </a>
+    <div class="navbar-actions">
+      <!-- Theme switch -->
+      <button id="theme-toggle" class="theme-toggle" aria-label="Alternar modo oscuro">
+        <span class="material-icons theme-icon-light">light_mode</span>
+        <span class="material-icons theme-icon-dark">dark_mode</span>
+      </button>
+      <img src="https://placehold.co/40x40/6366f1/ffffff?text=LOGO" 
+        class="navbar-avatar" alt="Avatar circular con logo de la tienda, fondo violeta y letras blancas" loading="lazy"
+        onerror="this.style.display='none';">
+    </div>
+  </header>
+
+  <!-- Main Content Panel -->
+  <div class="main-panel">
+    <h1>Inventario de Productos</h1>
+    <p>
+      Agrega, edita, busca, filtra y controla tu stock y ganancia rápidamente.<br>
+      Todas las funciones premium ¡para tu inventario!
+    </p>
+
+    <!-- Barra de búsqueda y filtros -->
+    <div class="inventory-controls" aria-label="Búsqueda y filtros de inventario">
+      <input type="search" id="buscador" placeholder="Buscar por nombre o marca..." autocomplete="off" aria-label="Buscar producto"/>
+      <div class="filter-actions">
+        <button type="button" class="filter-btn" data-filter="all" id="filtro-todos" aria-label="Ver todos">Todos</button>
+        <button type="button" class="filter-btn" data-filter="low" id="filtro-bajo" aria-label="Ver stock bajo">Stock Bajo</button>
+        <button type="button" class="filter-btn" data-filter="zero" id="filtro-cero" aria-label="Ver sin stock">Sin Stock</button>
+      </div>
+      <div class="export-import">
+        <button id="export-csv" class="btn-secundario" aria-label="Exportar a CSV">
+          <span class="material-icons" style="vertical-align:middle;">file_download</span>
+          Exportar CSV
+        </button>
+        <label for="import-csv" class="btn-secundario import-label" tabindex="0" aria-label="Importar desde CSV">
+          <span class="material-icons" style="vertical-align:middle;">file_upload</span>
+          Importar CSV
+          <input type="file" id="import-csv" accept=".csv" style="display:none;" />
+        </label>
+      </div>
+    </div>
+
+    <!-- Formulario de Producto -->
+    <form class="product-form" id="product-form" autocomplete="off" aria-label="Agregar Producto Nuevo">
+      <div class="form-control">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" required maxlength="30" placeholder="Ej: Gaseosa Lata">
+      </div>
+      <div class="form-control">
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" required maxlength="30" placeholder="Ej: Coca Cola">
+      </div>
+      <div class="form-control">
+        <label for="stock">Stock</label>
+        <input type="number" inputmode="numeric" id="stock" min="0" max="9999" required placeholder="Ej: 24">
+      </div>
+      <div class="form-control">
+        <label for="costo">Costo</label>
+        <input type="number" inputmode="decimal" id="costo" step="0.01" min="0" max="99999" required placeholder="Ej: 10.50">
+      </div>
+      <div class="form-control">
+        <label for="precio">Precio</label>
+        <input type="number" inputmode="decimal" id="precio" step="0.01" min="0" max="99999" required placeholder="Ej: 14.00">
+      </div>
+      <button type="submit">
+        <span class="material-icons" style="font-size:24px;">add</span>
+        Agregar
+      </button>
+    </form>
+
+    <!-- Tabla de Inventario -->
+    <div style="overflow-x:auto;">
+      <table class="inventory-table" aria-label="Inventario de productos">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Stock</th>
+            <th>Costo</th>
+            <th>Precio</th>
+            <th>Ganancia</th>
+            <th style="min-width:165px;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="product-list">
+          <!-- Contenido dinámico JS -->
+        </tbody>
+      </table>
+    </div>
+    <div id="loading-indicator" style="text-align:center; margin:16px 0;display:none;">
+      <span class="loading" aria-label="Cargando tabla..."></span>
+    </div>
+    <div id="import-feedback" class="import-feedback" style="display:none;"></div>
+    <noscript>
+      <p><strong>Activa JavaScript</strong> para gestionar el inventario.</p>
+    </noscript>
+  </div>
+  <!-- Modal Confirmar Eliminación -->
+  <div id="modal-backdrop" class="modal-backdrop" style="display:none;">
+    <div class="modal" role="dialog" aria-modal="true">
+      <span class="material-icons">warning</span>
+      <div id="modal-message">¿Seguro que quieres eliminar este producto?</div>
+      <div class="modal-actions">
+        <button class="modal-confirm">Eliminar</button>
+        <button class="modal-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+
